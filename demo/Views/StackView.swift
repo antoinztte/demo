@@ -12,23 +12,13 @@ struct StackView: View {
     @State var viewModel = CardViewModel(service: CardService())
     
     var body: some View {
-        NavigationStack {
             VStack {
                 ZStack {
                     ForEach(viewModel.cards) { friend in
                         HomeView(viewModel: viewModel, model: friend)
-                    }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack {
-                        Text("CU Here")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                    }
-                }
-            }
+                .shadow(color: Color(.gray).opacity(0.5), radius: 10, x: 0, y: 15)
         }
     }
 }
