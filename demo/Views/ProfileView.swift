@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    let user: User
+    let user: UserModel
     // Create boolean to control presentation
     @State private var isPresentedManageSubscription = false
 

@@ -9,7 +9,7 @@ import Foundation
 
 struct MockData {
     
-    static let users: [User] = [
+    static let users: [UserModel] = [
         .init(
             id: NSUUID().uuidString,
             fullName: "Antoinette Torres",

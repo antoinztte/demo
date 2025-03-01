@@ -44,7 +44,7 @@ struct HomeView: View {
 }
 
 private extension HomeView {
-    var user: User {
+    var user: UserModel {
         return model.user
     }
 }

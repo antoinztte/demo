@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct UserInfoView: View {
-    let user: User
+    let user: UserModel
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(user.fullName)
+                Text("\(user.fullName),")
                     .font(.title)
                     .fontWeight(.heavy)
                 
