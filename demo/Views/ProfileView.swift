@@ -51,6 +51,14 @@ struct ProfileView: View {
                             .offset(y: offset < 0 ? getOffset() - 20 : -20)
                             .scaleEffect(getScale())
                         Spacer()
+                    VStack {
+                        Text("Hello, \(getFirstName())!")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.black)
+                            .multilineTextAlignment(.leading)
+                            .padding(.top, -20)
+                    }
                 }
                 .padding(.top, -40)
                 .zIndex(-offset > 80 ? 0 : 1)
@@ -73,6 +81,10 @@ struct ProfileView: View {
     // Screen size helper
     func screenSize() -> CGRect {
         return UIScreen.main.bounds
+    }
+    
+    func getFirstName() -> String {
+        return String(user.fullName.split(separator: " ").first ?? "")
     }
 }
 
