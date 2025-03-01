@@ -14,31 +14,32 @@ struct ProfileView: View {
     let user: UserModel
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false, content: {
-            VStack(spacing: 15) {
-                
-                GeometryReader { proxy -> AnyView in
-                    let minY = proxy.frame(in: .global).minY
-                    DispatchQueue.main.async {
-                        self.offset = minY
-                    }
+        NavigationStack {
+            ScrollView(.vertical, showsIndicators: false, content: {
+                VStack(spacing: 15) {
                     
-                    return AnyView(
-                        ZStack {
-                            Image("banner")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: screenSize().width, height: minY > 0 ? 180 + minY : 180)
-                                .clipped()
+                    GeometryReader { proxy -> AnyView in
+                        let minY = proxy.frame(in: .global).minY
+                        DispatchQueue.main.async {
+                            self.offset = minY
                         }
-                        .frame(height: minY > 0 ? 180 + minY : 180)
-                        .offset(y: minY > 0 ? -minY : -minY < 80 ? 0 : -minY - 80)
-                    )
-                }
-                .frame(height: 180)
-                .zIndex(1)
-                
-                VStack {
+                        
+                        return AnyView(
+                            ZStack {
+                                Image("banner")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: screenSize().width, height: minY > 0 ? 180 + minY : 180)
+                                    .clipped()
+                            }
+                                .frame(height: minY > 0 ? 180 + minY : 180)
+                                .offset(y: minY > 0 ? -minY : -minY < 80 ? 0 : -minY - 80)
+                        )
+                    }
+                    .frame(height: 180)
+                    .zIndex(1)
+                    
+                    VStack {
                         Spacer()
                         Image("antoinette")
                             .resizable()
@@ -51,20 +52,30 @@ struct ProfileView: View {
                             .offset(y: offset < 0 ? getOffset() - 20 : -20)
                             .scaleEffect(getScale())
                         Spacer()
-                    VStack {
-                        Text("Hello, \(getFirstName())!")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.black)
-                            .multilineTextAlignment(.leading)
-                            .padding(.top, -20)
+                        VStack {
+                            Text("Hello, \(getFirstName())!")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                                .padding(.top, -20)
+                        }
+                    }
+                    .padding(.top, -40)
+                    .zIndex(-offset > 80 ? 0 : 1)
+                }
+            })
+            .ignoresSafeArea(.all, edges: .top)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: SettingsView(user: user)) {
+                        Image(systemName: "gearshape.fill")
+                            .font(.title2)
+                            .foregroundColor(.black)
                     }
                 }
-                .padding(.top, -40)
-                .zIndex(-offset > 80 ? 0 : 1)
             }
-        })
-        .ignoresSafeArea(.all, edges: .top)
+        }
     }
 
     func getOffset() -> CGFloat {
