@@ -17,9 +17,13 @@ struct BottomTabView: View {
                 .tabItem { Image(systemName: "house.fill") }
                 .tag(0)
             
+            ChatView()
+                .tabItem { Image(systemName: "bubble.left.and.bubble.right") }
+                .tag(1)
+            
             ProfileView(user: MockData.users[0])
                 .tabItem { Image(systemName: "person.crop.circle.fill") }
-                .tag(1)
+                .tag(2)
         }
         .tint(.primary)
     }

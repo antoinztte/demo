@@ -5,79 +5,78 @@
 //  Created by Antoinette Marie Torres on 2/28/25.
 //
 
-import StoreKit
 import SwiftUI
 
 struct ProfileView: View {
     
+    @State var offset: CGFloat = 0
+    
     let user: UserModel
-    // Create boolean to control presentation
-    @State private var isPresentedManageSubscription = false
 
     var body: some View {
-        
-        NavigationStack {
-            List {
-                Section {
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Image(user.profileImageURL)
+        ScrollView(.vertical, showsIndicators: false, content: {
+            VStack(spacing: 15) {
+                
+                GeometryReader { proxy -> AnyView in
+                    let minY = proxy.frame(in: .global).minY
+                    DispatchQueue.main.async {
+                        self.offset = minY
+                    }
+                    
+                    return AnyView(
+                        ZStack {
+                            Image("banner")
                                 .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .clipShape(Circle())
-                                .background {
-                                    Circle()
-                                        .fill(Color(.systemGray6))
-                                        .frame(width: 104, height: 104)
-                                        .shadow(radius: 2)
-                                }
-                            Text("\(user.fullName), \(user.age)")
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: screenSize().width, height: minY > 0 ? 180 + minY : 180)
+                                .clipped()
                         }
+                        .frame(height: minY > 0 ? 180 + minY : 180)
+                        .offset(y: minY > 0 ? -minY : -minY < 80 ? 0 : -minY - 80)
+                    )
+                }
+                .frame(height: 180)
+                .zIndex(1)
+                
+                VStack {
                         Spacer()
-                    }
-                }
-                Section("Account Settings") {
-                    HStack {
-                        Text("Name")
+                        Image("antoinette")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 90, height: 90)
+                            .clipShape(Circle())
+                            .padding(8)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .offset(y: offset < 0 ? getOffset() - 20 : -20)
+                            .scaleEffect(getScale())
                         Spacer()
-                        Text(user.fullName)
-                    }
-                    HStack {
-                        Text("Email")
-                        Spacer()
-                        Text(user.email)
-                    }
                 }
-                Section("Legal") {
-                    HStack {
-                        Text("Terms of Service")
-                    }
-                    HStack {
-                        Button("Manage Subscriptions") {
-                            isPresentedManageSubscription = true
-                        }
-                        .buttonStyle(.automatic)
-                        // Bind to the modifier and present the sheet
-                        .manageSubscriptionsSheet(isPresented: $isPresentedManageSubscription)
-                    }
-                }
-                Section {
-                    Button("Logout") {
-                    }
-                    .foregroundStyle(.red)
-                }
-                Section {
-                    Button("Delete Account") {
-                    }
-                    .foregroundStyle(.red)
-                }
+                .padding(.top, -40)
+                .zIndex(-offset > 80 ? 0 : 1)
             }
-        }
+        })
+        .ignoresSafeArea(.all, edges: .top)
+    }
+
+    func getOffset() -> CGFloat {
+        let progress = (-offset / 80) * 20
+        return progress <= 20 ? progress : 20
+    }
+    
+    func getScale() -> CGFloat {
+        let progress = -offset / 80
+        let scale = 1.8 - (progress < 1.0 ? progress : 1.0)
+        return scale < 1 ? scale : 1
+    }
+    
+    // Screen size helper
+    func screenSize() -> CGRect {
+        return UIScreen.main.bounds
     }
 }
 
 #Preview {
     ProfileView(user: MockData.users[0])
 }
+

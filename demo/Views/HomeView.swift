@@ -23,13 +23,16 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFill()
                 
-                SwipeView(xOffset: $xOffset)
+//                SwipeView(xOffset: $xOffset)
             }
             
             UserInfoView(user: user)
                 .padding(.horizontal)
                 .padding(.horizontal)
         }
+        .onReceive(viewModel.$buttonSwipeAction, perform: { action in
+            swipeAction(action)
+        })
         .frame(width: Constants.cardWidth, height: Constants.cardHeight)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .offset(x: xOffset)
@@ -70,6 +73,21 @@ private extension HomeView {
             degrees = -12
         } completion: {
             viewModel.removeCard(model)
+        }
+    }
+    
+    func swipeAction(_ action: SwipeModel?) {
+        guard let action else { return }
+        
+        let top = viewModel.cards.last
+        
+        if top == model {
+            switch action {
+            case .pass :
+                swipeLeft()
+            case .befriend :
+                swipeRight()
+            }
         }
     }
 }

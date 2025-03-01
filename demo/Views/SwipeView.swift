@@ -15,17 +15,11 @@ struct SwipeView: View {
 
         HStack {
             Spacer()
-            Image(systemName: "hand.thumbsup.circle.fill")
-                .font(.largeTitle)
+            Text("Sending friend request!")
+                .font(.title)
                 .fontWeight(.heavy)
-                .foregroundStyle(.green)
+                .foregroundStyle(.white)
                 .opacity(Double(xOffset / Constants.screenCutoff))
-            Spacer()
-            Image(systemName: "hand.thumbsdown.circle.fill")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-                .foregroundStyle(.red)
-                .opacity(Double(xOffset / Constants.screenCutoff) * -1)
             Spacer()
         }
         .padding(40)

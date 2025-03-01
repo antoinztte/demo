@@ -36,6 +36,24 @@ struct MockData {
             email: "myl42@cornell.edu",
             age: 21,
             profileImageURL: "monica"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            fullName: "Funmi Olukanmi",
+            major: "Information Science",
+            grade: "Junior",
+            email: "omo8@cornell.edu",
+            age: 20,
+            profileImageURL: "funmi"
+        ),
+        .init(
+            id: NSUUID().uuidString,
+            fullName: "Izabella Tandlmayer",
+            major: "Psychology",
+            grade: "Junior",
+            email: "iat24@cornell.edu",
+            age: 21,
+            profileImageURL: "izabella"
         )
     ]
 }

@@ -12,13 +12,14 @@ struct StackView: View {
     @State var viewModel = CardViewModel(service: CardService())
     
     var body: some View {
-            VStack {
+        VStack(spacing: 20.0) {
                 ZStack {
                     ForEach(viewModel.cards) { friend in
                         HomeView(viewModel: viewModel, model: friend)
                 }
             }
-                .shadow(color: Color(.gray).opacity(0.5), radius: 10, x: 0, y: 15)
+                .shadow(color: Color(.gray).opacity(0.2), radius: 5, x: 0, y: 15)
+            SwipeButtonsView(viewModel: viewModel)
         }
     }
 }

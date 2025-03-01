@@ -11,6 +11,7 @@ class CardViewModel: ObservableObject {
 
     // Where our data source exists (i.e., providing our cards)
     @Published var cards = [CardModel]()
+    @Published var buttonSwipeAction: SwipeModel?
     
     private let service: CardService
     
