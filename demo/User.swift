@@ -12,6 +12,7 @@ struct User: Identifiable {
     let fullName: String
     let major: String
     let grade: String
+    let email: String
     var age: Int
     var profileImageURL: String
 }

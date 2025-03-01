@@ -9,22 +9,75 @@ import StoreKit
 import SwiftUI
 
 struct ProfileView: View {
-
+    
+    let user: User
     // Create boolean to control presentation
     @State private var isPresentedManageSubscription = false
 
     var body: some View {
-
-        Button("Manage Subscriptions") {
-            isPresentedManageSubscription = true
+        
+        NavigationStack {
+            List {
+                Section {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Image(user.profileImageURL)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                                .background {
+                                    Circle()
+                                        .fill(Color(.systemGray6))
+                                        .frame(width: 104, height: 104)
+                                        .shadow(radius: 2)
+                                }
+                            Text("\(user.fullName), \(user.age)")
+                        }
+                        Spacer()
+                    }
+                }
+                Section("Account Settings") {
+                    HStack {
+                        Text("Name")
+                        Spacer()
+                        Text(user.fullName)
+                    }
+                    HStack {
+                        Text("Email")
+                        Spacer()
+                        Text(user.email)
+                    }
+                }
+                Section("Legal") {
+                    HStack {
+                        Text("Terms of Service")
+                    }
+                    HStack {
+                        Button("Manage Subscriptions") {
+                            isPresentedManageSubscription = true
+                        }
+                        .buttonStyle(.automatic)
+                        // Bind to the modifier and present the sheet
+                        .manageSubscriptionsSheet(isPresented: $isPresentedManageSubscription)
+                    }
+                }
+                Section {
+                    Button("Logout") {
+                    }
+                    .foregroundStyle(.red)
+                }
+                Section {
+                    Button("Delete Account") {
+                    }
+                    .foregroundStyle(.red)
+                }
+            }
         }
-        .buttonStyle(.automatic)
-        // Bind to the modifier and present the sheet
-        .manageSubscriptionsSheet(isPresented: $isPresentedManageSubscription)
-
     }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(user: MockData.users[0])
 }
