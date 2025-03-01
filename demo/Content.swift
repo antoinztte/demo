@@ -16,12 +16,12 @@ struct Content: View {
         
         // Set binding
         TabView(selection: $selectedTab) {
-            HomeView()
-            .tabItem {
-                Image(systemName: "house.fill")
-                    .foregroundColor(Color.white)
-            }
-            .tag(0)
+//            HomeView(model: )
+//            .tabItem {
+//                Image(systemName: "house.fill")
+//                    .foregroundColor(Color.white)
+//            }
+//            .tag(0)
             
             ProfileView()
                 .tabItem {

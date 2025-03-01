@@ -9,20 +9,24 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @ObservedObject var viewModel: CardViewModel
+    
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
+    
+    let model: CardModel
 
     var body: some View {
         ZStack(alignment: .bottom) {
             ZStack(alignment: .top) {
-                Image(.antoinette)
+                Image(user.profileImageURL)
                     .resizable()
                     .scaledToFill()
                 
                 SwipeView(xOffset: $xOffset)
             }
             
-            UserInfoView()
+            UserInfoView(user: user)
                 .padding(.horizontal)
                 .padding(.horizontal)
         }
@@ -40,6 +44,37 @@ struct HomeView: View {
 }
 
 private extension HomeView {
+    var user: User {
+        return model.user
+    }
+}
+
+private extension HomeView {
+    func returnToCenter() {
+        xOffset = 0
+        degrees = 0
+    }
+    
+    func swipeRight() {
+        withAnimation {
+            xOffset = 500
+            degrees = 12
+        } completion: {
+            viewModel.removeCard(model)
+        }
+    }
+    
+    func swipeLeft() {
+        withAnimation {
+            xOffset = -500
+            degrees = -12
+        } completion: {
+            viewModel.removeCard(model)
+        }
+    }
+}
+
+private extension HomeView {
     func onDragChanged(_ value: _ChangedGesture<DragGesture>.Value) {
         xOffset = value.translation.width
         degrees = Double(value.translation.width / 25)
@@ -48,16 +83,24 @@ private extension HomeView {
         let width = value.translation.width
         
         if abs(width) <= abs(Constants.screenCutoff) {
-            xOffset = 0
-            degrees = 0
+            returnToCenter()
+            return
         }
-        else {
-            
+        if width >= Constants.screenCutoff {
+            swipeRight()
+        } else {
+            swipeLeft()
         }
-        
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(
+        viewModel: CardViewModel(
+            service: CardService()
+        ),
+        model: CardModel(
+            user: MockData.users[0]
+        )
+    )
 }
