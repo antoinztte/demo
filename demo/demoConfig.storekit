@@ -17,10 +17,125 @@
 
   ],
   "settings" : {
-    "_failTransactionsEnabled" : false
+    "_failTransactionsEnabled" : false,
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
   },
   "subscriptionGroups" : [
+    {
+      "id" : "5A886C96",
+      "localizations" : [
 
+      ],
+      "name" : "Auto-Renewable Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "49.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "8EE28A02",
+          "introductoryOffer" : {
+            "internalID" : "419EE01E",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "7-Day Free Trial",
+              "displayName" : "Yearly Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "subscription.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly",
+          "subscriptionGroupID" : "5A886C96",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "5.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "7E351039",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Billed Monthly",
+              "displayName" : "Monthly Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "subscription.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly",
+          "subscriptionGroupID" : "5A886C96",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
   ],
   "version" : {
     "major" : 4,

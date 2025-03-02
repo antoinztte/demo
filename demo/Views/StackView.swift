@@ -24,15 +24,7 @@ struct StackView: View {
                 }
             }
                 .shadow(color: Color(.gray).opacity(0.2), radius: 5, x: 0, y: 15)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Image(.cub)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 88, height: 30)
-                            .padding([.leading, .bottom], -15)
-                }
-            }
+                .cornerLogo()
         }
     }
 }

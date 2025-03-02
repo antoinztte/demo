@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct ChatView: View {
+    
+    @StateObject var storeViewModel = StoreViewModel()
+
     public var body: some View {
-        Text("ChatView")
+        VStack {
+            if storeViewModel.purchasedSubscriptions.isEmpty {
+                SubscriptionView()
+            }
+            else {
+                Text("Premium Content")
+            }
+        }
+        .padding()
+        .environmentObject(storeViewModel)
     }
 }
 
