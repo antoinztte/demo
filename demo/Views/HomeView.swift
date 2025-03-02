@@ -23,7 +23,7 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFill()
                 
-//                SwipeView(xOffset: $xOffset)
+//                SwstackvipeView(xOffset: $xOffset)
             }
             
             UserInfoView(user: user)
