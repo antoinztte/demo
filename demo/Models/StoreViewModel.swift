@@ -8,10 +8,12 @@
 import Foundation
 import StoreKit
 
+// It is important to get auto-renewable subscription info on-device, regarding current subscriber status and upcoming renewal period
 typealias RenewalState = StoreKit.Product.SubscriptionInfo.RenewalState
 
 class StoreViewModel: ObservableObject {
     
+    // Two properties use the new Product API
     @Published private(set) var subscriptions: [Product] = []
     @Published private(set) var purchasedSubscriptions: [Product] = []
     @Published private(set) var subscriptionGroupStatus: RenewalState?
@@ -21,12 +23,13 @@ class StoreViewModel: ObservableObject {
     
     var updateListenerTask: Task<Void, Error>? = nil
     
+    // Once class is loaded, request products
     init() {
         
         updateListenerTask = listenForTransactions()
         
         Task {
-            await fetchSubscription()
+            await requestSubscription()
             
             await updateCustomerProductStatus()
         }
@@ -53,7 +56,7 @@ class StoreViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchSubscription() async {
+    func requestSubscription() async {
         do {
             subscriptions = try await Product.products(for: productIds)
             print(subscriptions)
@@ -83,6 +86,7 @@ class StoreViewModel: ObservableObject {
         }
     }
     
+    // Validates authenticity of transaction after successful purchase, or restore transaction
     func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {
         case .unverified:
