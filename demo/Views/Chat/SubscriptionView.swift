@@ -34,7 +34,7 @@ struct SubscriptionView: View {
                         }
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color(red: 52/255, green: 78/255, blue: 65/255))
+                        .background(Color(red: 84/255, green: 92/255, blue: 108/255))
                         .cornerRadius(15.0)
                     }
                 }
