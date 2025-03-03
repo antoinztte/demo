@@ -11,7 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     
     let user: UserModel
-    // Create boolean to control presentation
+    // Tracks whether the sheet should be presented
     @State private var isPresentedManageSubscription = false
 
     var body: some View {
@@ -36,9 +36,11 @@ struct SettingsView: View {
                     }
                     HStack {
                         Button("Manage Subscriptions") {
+                            // When tapped, triggers the subscription sheet
                             isPresentedManageSubscription = true
                         }
                         .buttonStyle(.automatic)
+                        // Using the recommended SwiftUI API
                         // Bind to the modifier and present the sheet
                         .manageSubscriptionsSheet(isPresented: $isPresentedManageSubscription)
                     }

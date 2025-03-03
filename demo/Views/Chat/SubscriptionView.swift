@@ -43,9 +43,12 @@ struct SubscriptionView: View {
         }
     }
     
+    // Handles purchase process when a user selects a subscription
     func buy(product: Product) async {
         do {
+            // Calls purchaseSubscription function in StoreViewModel
             if try await storeViewModel.purchaseSubscription(product) != nil {
+                // If purchase is successful, update state
                 isPurchased = true
             }
         } catch {
@@ -54,6 +57,7 @@ struct SubscriptionView: View {
     }
 }
 
+// Injects a test instance of StoreViewModel so view can fetch sample data
 #Preview {
     SubscriptionView().environmentObject(StoreViewModel())
 }
