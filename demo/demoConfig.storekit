@@ -117,7 +117,11 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "7E351039",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "4BC32B7A",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
           "localizations" : [
             {
               "description" : "Billed Monthly",

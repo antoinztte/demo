@@ -25,7 +25,7 @@ struct BottomTabView: View {
                 .tabItem { Image(systemName: "person.crop.circle.fill") }
                 .tag(2)
         }
-        .tint(Color(red: 52/255, green: 78/255, blue: 65/255))
+        .tint(Color(red: 85/255, green: 91/255, blue: 110/255))
     }
 }
 

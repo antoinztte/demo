@@ -9,26 +9,29 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @AppStorage("isOnboardingSheetShowing") var isOnboardingSheetShowing = true
+    
     @ObservedObject var viewModel: CardViewModel
     
     @State private var xOffset: CGFloat = 0
     @State private var degrees: Double = 0
     
     let model: CardModel
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             ZStack(alignment: .top) {
                 Image(user.profileImageURL)
                     .resizable()
                     .scaledToFill()
-                
-//                SwstackvipeView(xOffset: $xOffset)
             }
             
             UserInfoView(user: user)
                 .padding(.horizontal)
                 .padding(.horizontal)
+        }
+        .sheet(isPresented: $isOnboardingSheetShowing) {
+            OnboardingView(isOnboardingActive: $isOnboardingSheetShowing)
         }
         .onReceive(viewModel.$buttonSwipeAction, perform: { action in
             swipeAction(action)
