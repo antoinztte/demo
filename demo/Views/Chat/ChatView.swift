@@ -13,38 +13,36 @@ struct ChatView: View {
     
     public var body: some View {
         NavigationStack {
-            ZStack(alignment: .top) {
-                VStack {
-                    if storeViewModel.purchasedSubscriptions.isEmpty {
-                        SubscriptionView()
-                    } else {
-                        ActiveUserView()
-
-                        List {
-                            ForEach(MockData.users.dropFirst(), id: \.id) { user in
-                                InboxRowView(user: user)
-                            }
-                        }
-                        .scrollContentBackground(.hidden)
-                        .listStyle(PlainListStyle())
-                    }
-                }
-                .padding(.top, 16)
-                .background(Color.white.ignoresSafeArea())
-
-                cornerLogo()
+            if storeViewModel.purchasedSubscriptions.isEmpty {
+                SubscriptionView()
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        print("Show new message view")
-                    } label: {
-                        Image(systemName: "square.and.pencil.circle.fill")
-                            .resizable()
-                            .frame(width: 32, height: 32)
-                            .foregroundStyle(.black, Color(.systemGray6))
+            else {
+                ScrollView {
+                    ActiveUserView()
+                    
+                    List {
+                        ForEach(MockData.users.dropFirst(), id: \.id) { user in
+                            InboxRowView(user: user)
+                        }
+                    }
+                    .scrollContentBackground(.hidden)
+                    .listStyle(PlainListStyle())
+                    .frame(height: UIScreen.main.bounds.height - 120)
+                }
+                .cornerLogo()
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            print("Show new message view")
+                        } label: {
+                            Image(systemName: "square.and.pencil.circle.fill")
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                                .foregroundStyle(.black, Color(.systemGray6))
+                        }
                     }
                 }
+                Spacer()
             }
         }
         .padding()
