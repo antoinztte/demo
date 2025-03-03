@@ -23,8 +23,8 @@ struct StackView: View {
                     SwipeButtonsView(viewModel: viewModel)
                 }
             }
-                .shadow(color: Color(.gray).opacity(0.2), radius: 5, x: 0, y: 15)
-                .cornerLogo()
+            .shadow(color: Color(.gray).opacity(0.2), radius: 5, x: 0, y: 15)
+            .cornerLogo()
         }
     }
 }
